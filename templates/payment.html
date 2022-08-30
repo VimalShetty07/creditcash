@@ -1,23 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+
+
+
+      var name = $("[name='name']").val();
+      var email = $("[name='email']").val();
+      var number = $("[name='number']").val();
+
+      if (name=="" || email=="" || number=="" )
+      {
+        alert("All fields are required");
+        return false
+      }
+      else{
+        var options = {
+        key: "YOUR_KEY_ID", // Enter the Key ID generated from the Dashboard
+        amount: "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "Acme Corp",
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+        prefill: {
+          name: "Gaurav Kumar",
+          email: "gaurav.kumar@example.com",
+          contact: "9999999999",
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      var rzp1 = new Razorpay(options);
+
+      }
+         
+      document.getElementById("rzp-button1").onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+      };
+      
+      
+      
+    </script>
+
+
+
+
+
+  </head>
+  <body>
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        <strong>Message:</strong> {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
+    <div
+      class="alert alert-{{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      <strong>Message:</strong> {{ message }}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     {% endfor %}
 
     <h3>Welcome to creditcash</h3>
-
 
     {% if user.is_authenticated %}
     <h3>Hello {{fname}}!</h3>
@@ -25,10 +89,34 @@
     <button type="submit"><a href="/signout">SignOut</a></button>
     {% else %}
     <button type="submit"><a href="/signup">SignUp</a></button>
-    <br/>
-    <br/>
+    <br />
+    <br />
     <button type="submit"><a href="/signin">SignIn</a></button>
     {% endif %}
 
-</body>
+    <form action="signup" method="post">
+           {% csrf_token %}
+            
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">name</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="name@example.com">
+              </div>
+              
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">number</label>
+                <input type="text" class="form-control" name="number" id="number" placeholder="name@example.com">
+              </div>
+    
+              
+              
+        </form>
+
+    <button id="rzp-button1">Pay</button>
+
+
+  </body>
 </html>
