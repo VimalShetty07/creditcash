@@ -119,3 +119,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
+
+
+
+
+KEY = "rzp_test_GB5h8MarzT5jOH"
+SECRET = "Qd7y0mbMGP3zyeMfttXs4qDI"
+
