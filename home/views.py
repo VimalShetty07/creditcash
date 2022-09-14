@@ -83,7 +83,7 @@ def payment(request):
         amount = int(request.POST.get("amount"))*100
         currency = "INR"
 
-        client = razorpay.Client(auth=("rzp_test_UlPXLv7pTyTxrI", "4Ptbkdxmla4eIZ1SGBMzaOc0"))
+        client = razorpay.Client(auth=("rzp_live_Vjj3uP8XwfZut7", "rk8pcH32KrbdsB3bkSVyKbBz"))
 
         DATA = {
                 "amount": 5000000,
