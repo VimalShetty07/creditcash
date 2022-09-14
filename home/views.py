@@ -75,14 +75,18 @@ def payment(request):
     if request.method == "POST":
 
         name = request.POST.get("name")
+        lname = request.POST.get("lname")
         number = request.POST.get("number")
+        upi = request.POST.get("upi")
+        email = request.POST.get("email")
+        zipc = request.POST.get("zip")
         amount = int(request.POST.get("amount"))*100
         currency = "INR"
 
-        client = razorpay.Client(auth=("rzp_test_7VV6SYjccD0hi6", "I1Stx6ZIjh0ahaQwFJb6lGIz"))
+        client = razorpay.Client(auth=("rzp_test_UlPXLv7pTyTxrI", "4Ptbkdxmla4eIZ1SGBMzaOc0"))
 
         DATA = {
-                "amount": 1000000,
+                "amount": 5000000,
                 "currency": "INR",
                 "receipt": "receipt#1",
                    "notes": {
@@ -91,31 +95,21 @@ def payment(request):
                            }
                    }
         payment = client.order.create(data=DATA)
-        payment_id = payment['id']
-        payment['name'] = name
+        
 
 
-        context = {}
-        context['razorpay_order_id'] = payment['id']
-        context['razorpay_amount'] = amount
-        context['currency'] = currency
-        context['name'] = name
+        payment['money']=5000000
+        # context['razorpay_order_id'] = payment['id']
+        # context['razorpay_amount'] = amount
+        # context['currency'] = currency
+        # context['name'] = name
+        # data = {'payment': payment, 'context': context}
 
-
+        
+        
         print(payment)
-        # context = {'name':name,'number':number,'payment':payment}
-        return render(request, 'payment.html',context=context)
+        return render(request, 'payment.html' )
 
-        # order_id = response_payment['id']
-        # order_status = response_payment['status']
-        # if order_status == 'created':
-        #     order = Order(
-        #         name=name,
-        #         amount=amount,
-        #         order_id=order_id,
-        #     )
-        #     order.save()
-        #     response_payment['name'] = name
 
     return render(request ,"payment.html")
 
